@@ -139,7 +139,7 @@ Since, the DTMC is irreducible and aperiodic, we can solve the following equatio
 
 ![](pi1.png)
 
-![](pi1.png)
+![](pi2.png)
 
 Here &piv; is the array of steady state probability of all states.
 
