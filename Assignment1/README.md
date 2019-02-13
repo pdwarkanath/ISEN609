@@ -3,8 +3,8 @@
 
 ## Problem Statement
 
-A manufacturing setup consists of two distinct machines, each producing one component per hour. Each component is tested instantly and is identified as defective or non-defective. Let $\alpha_i$ be the probability that a component produced by machine i is non-defective, for i = 1; 2. The defective components are discarded and the non-defective components are stored in two different bins, one for each machine. When a component is present in each bin, the two are instantly assembled together and shipped out. Bin i can hold at most Bi components (where Bi is a fixed positive integer) for i = 1; 2. When a bin is full, the corresponding machine is turned off. It is turned on again when the bin has space for at least one component. Assume that successive components are independent. Model the system as a DTMC by writing down the state Xn, state space S and drawing the transition diagram. Write a program to obtain the steady-state probabilities. For the numerical values (we call these the baseline values) B1 = 3, B2 = 4, $\alpha_1$ = 0:7 and $\alpha_2$ = 0:6, obtain (a) the long-run average number of components in each buffer at the beginning of an hour (before any production) and (b) the throughput (the steady-state number of assembled products shipped
-out per hour). Perform four numerical experiments by varying one of B1, B2, $\alpha_1$ and $\alpha_2$ while leaving the others at their baseline values described above. For example, you can vary B1 from 1 to 10 with B2 = 4, $\alpha_1$ = 0.7 and $\alpha_2$ = 0.6. Likewise, you could vary $\alpha_2$ from 0.1 to 0.9 while keeping B1, B2 and $\alpha_1$ at the baseline values. Graph (a) and (b), what do you observe? Explain your findings.
+A manufacturing setup consists of two distinct machines, each producing one component per hour. Each component is tested instantly and is identified as defective or non-defective. Let &alpha;<sub>i</sub> be the probability that a component produced by machine i is non-defective, for i = 1; 2. The defective components are discarded and the non-defective components are stored in two different bins, one for each machine. When a component is present in each bin, the two are instantly assembled together and shipped out. Bin i can hold at most Bi components (where Bi is a fixed positive integer) for i = 1; 2. When a bin is full, the corresponding machine is turned off. It is turned on again when the bin has space for at least one component. Assume that successive components are independent. Model the system as a DTMC by writing down the state Xn, state space S and drawing the transition diagram. Write a program to obtain the steady-state probabilities. For the numerical values (we call these the baseline values) B1 = 3, B2 = 4, &alpha;<sub>1</sub> = 0.7 and &alpha;<sub>2</sub> = 0.6, obtain (a) the long-run average number of components in each buffer at the beginning of an hour (before any production) and (b) the throughput (the steady-state number of assembled products shipped
+out per hour). Perform four numerical experiments by varying one of B1, B2, &alpha;<sub>1</sub> and &alpha;<sub>2</sub> while leaving the others at their baseline values described above. For example, you can vary B1 from 1 to 10 with B2 = 4, &alpha;<sub>1</sub> = 0.7 and &alpha;<sub>2</sub> = 0.6. Likewise, you could vary &alpha;<sub>2</sub> from 0.1 to 0.9 while keeping B1, B2 and alpha;<sub>1</sub> at the baseline values. Graph (a) and (b), what do you observe? Explain your findings.
 
 
 ```python
@@ -16,7 +16,7 @@ import pandas as pd
 
 ## DTMC Modeling
 
-Let $X_n$ be the number of components in the Bin 1 at the beginning of the n-th hour. If a component is present in both bins, the two are assembled immediately, so at the beginning of an hour, there can be components in only one of the 2 bins. So, let $X_n$ grow negatively when there are components in Bin 2 instead of Bin 1.
+Let X<sub>n</sub> be the number of components in the Bin 1 at the beginning of the n-th hour. If a component is present in both bins, the two are assembled immediately, so at the beginning of an hour, there can be components in only one of the 2 bins. So, let X<sub>n</sub> grow negatively when there are components in Bin 2 instead of Bin 1.
 
 So the state space then becomes, {-B2, -B2+1,…,0, 1, 2,…,B1}
 
@@ -58,24 +58,24 @@ So, the transition diagram can be obtained as follows:
 
 Considering edge cases when the bins are full and their corresponding machines are shut.
 
-If $X_n = -B_2$,
-* $X_{n+1} = -B_2$ wp $1-\alpha_1$ i.e. a defective component is produced by machine 1 and,
-* $X_{n+1} = -B_2 + 1$ wp $\alpha_1$ i.e. a non-defective component is produced by machine 1.
+If X<sub>n</sub> = -B<sub>2,
+* X<sub>n+1</sub> = -B<sub>2</sub> wp 1 - &alpha;<sub>1</sub> i.e. a defective component is produced by machine 1 and,
+* X<sub>n+1</sub> = -B<sub>2</sub> + 1 wp &alpha;<sub>1</sub> i.e. a non-defective component is produced by machine 1.
 
 All other states are beyond reach in one step.
 
 Similarly,
 
-If $X_n = B_1$,
-* $X_{n+1} = B_1 - 1$ wp $\alpha_2$ i.e. a non-defective component is produced by machine 2 and, 
-* $X_{n+1} = B_1$ wp $1-\alpha_2$ i.e. a defective component is produced by machine 2.
+If X<sub>n</sub> = B<sub>1</sub>,
+* X<sub>n+1</sub> = B_1 - 1 wp &alpha;<sub>2</sub> i.e. a non-defective component is produced by machine 2 and, 
+* X<sub>n+1</sub> = B<sub>1</sub> wp 1-&alpha;<sub>2</sub> i.e. a defective component is produced by machine 2.
 
 All other states are beyond reach in one step.
 
-For all other values of $X_n$ in $S$,
-* $X_n = X_n - 1$ wp $1-\alpha_2$ i.e. a defective component is produced by machine 2 and,
-* $X_{n+1} = X_n$ wp $\alpha_1\alpha_2 + (1-\alpha_1)(1-\alpha_2)$ i.e. either both machines produce a defective component or both machines produce a working component
-* $X_{n+1} = X_n + 1$ wp $\alpha_2$ i.e. a non-defective component is produced by machine 2
+For all other values of X<sub>n</sub> in S,
+* X<sub>n</sub> = X<sub>n</sub> - 1 wp 1-&alpha;<sub>2</sub> i.e. a defective component is produced by machine 2 and,
+* X<sub>n+1</sub> = X<sub>n</sub> wp &alpha;<sub>1</sub>&alpha;<sub>2</sub> + (1-&alpha;<sub>1</sub>)(1-&alpha;<sub>2</sub>) i.e. either both machines produce a defective component or both machines produce a working component
+* X<sub>n+1</sub> = X_n + 1 wp &alpha;<sub>2</sub> i.e. a non-defective component is produced by machine 2
 
 
 ![Transition Diagram](TransitionDiagram.png)
@@ -137,13 +137,13 @@ P
 
 Since, the DTMC is irreducible and aperiodic, we can solve the following equation to find the steady state probabilities.
 
-$$ \pi = \pi.P $$
+![](pi1.png)
 
-$$ [0 0 ... 0] = \pi.[I - P] $$
+![](pi1.png)
 
-Here $\pi$ is the array of steady state probability of all states.
+Here &piv; is the array of steady state probability of all states.
 
-This can be solved by substituting the last column in $[I – P]$ with 1 and inverting that matrix. The code for this is as below
+This can be solved by substituting the last column in [I – P] with 1 and inverting that matrix. The code for this is as below
 
 
 ```python
@@ -181,14 +181,14 @@ pi
 
 ### Components in Bins
 
-Let $Y_i$ be the number of components in Bin i for i = 1,2. The average number of components at the beginning of an hour is then given by $E[Y_i]$.
+Let Y<sub>i</sub> be the number of components in Bin i for i = 1,2. The average number of components at the beginning of an hour is then given by E[Y<sub>i</sub>].
 
-$$ E[Y_i] = \sum_j E[Y_i | X_n = j].P(X_n = j) $$
+![](EY.png)
 
 Here,
-* $P(X_n=j)= \pi_j$ where $j \in S$
-* $E[Y_1 | X_n = j] = j$ where $j \in \{0, 1,2,…,B_1\}$
-* $E[Y_2 | X_n = j] = -j$  where $j \in \{-B_2,-B_2+1,…,-1, 0\}$
+* P(X<sub>n</sub> = j) = &piv;<sub>j</sub> where j &isin; S
+* E[Y<sub>1</sub> | X<sub>n</sub> = j] = j where j &isin; {0, 1,2,…,B_1}
+* E[Y<sub>2</sub> | X<sub>n</sub> = j] = -j  where j &isin; {-B_2,-B_2+1,…,-1, 0}
 
 
 ```python
@@ -235,13 +235,13 @@ getBinComponents(2, parameters)
 
 Let Z be the number of assembled products in an hour. The average number of products assembled is then given by E[Z].
 
-$$ E[Z] = \sum_{j \in S} E[Z|X_n = j].P(X_n = j) $$
+![](EZ.png)
 
 Here,
-* $P(X_n=j)= \pi_j$ where $j \in S$
-* $E[Z | X_n = j] = \alpha_2$ where $j \in \{1,2,…,B_1\}$
-* $E[Z | X_n = j] = \alpha_1$  where $j \in \{-B_2,-B_2+1,…,-1\}$
-* $E[Z | X_n = j] = \alpha_1\alpha_2$ where $j = 0$
+* P(X<sub>n</sub> = j) = &piv;<sub>j</sub> where j &isin; S
+* E[Z | X<sub>n</sub> = j] = &alpha;<sub>2</sub> where j &isin; {1,2,…,B_1}
+* E[Z | X<sub>n</sub> = j] = &alpha;<sub>1</sub>  where j &isin; {-B_2,-B_2+1,…,-1}
+* E[Z | X<sub>n</sub> = j] = &alpha;<sub>1</sub>&alpha;<sub>2</sub> where j = 0
 
 
 ```python
@@ -403,9 +403,9 @@ experiment(parameters, 3)
 
 ## Observations and Inferences
 
-As the bin 1 capacity increase, the average components in it also increase while those in bin 2 steadily decline. Changes to the bin 2 capacity show little effect on the number of average components. This is because the probability of machine 1 producing a non-defective component is greater than the probability for machine 2. So, over the long run, the probability of Bin 2 getting filled up diminishes while there is no such limiting restriction on Bin 1. Bin capacities have virtually no effect on the average products shipped per hour. This is explained by changing $\alpha_1$ and $\alpha_2$.
+As the bin 1 capacity increase, the average components in it also increase while those in bin 2 steadily decline. Changes to the bin 2 capacity show little effect on the number of average components. This is because the probability of machine 1 producing a non-defective component is greater than the probability for machine 2. So, over the long run, the probability of Bin 2 getting filled up diminishes while there is no such limiting restriction on Bin 1. Bin capacities have virtually no effect on the average products shipped per hour. This is explained by changing &alpha;<sub>1</sub> and &alpha;<sub>2</sub>.
 
-The lesser of the two probabilities of machines producing a non-defective product is the limiting probability of assembling a product in an hour. In other words, the 'slower' of the machines is the 'speed-determining' machine. This can be seen by changing the values of $\alpha_1$ and $\alpha_2$. Since only 1 product can be assembled in an hour, the average number of products shipped per hour is approximately the same as the lesser of the two values of $\alpha_1$ and $\alpha_2$.
+The lesser of the two probabilities of machines producing a non-defective product is the limiting probability of assembling a product in an hour. In other words, the 'slower' of the machines is the 'speed-determining' machine. This can be seen by changing the values of &alpha;<sub>1</sub> and &alpha;<sub>2</sub>. Since only 1 product can be assembled in an hour, the average number of products shipped per hour is approximately the same as the lesser of the two values of &alpha;<sub>1</sub> and &alpha;<sub>2</sub>.
 
 Also, as the probability of a machine producing a non-defective component increases, so does the long-run average number of components in the corresponding bin while the long-run average number of components in the other bin decreases.
 
