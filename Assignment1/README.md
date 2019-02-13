@@ -67,7 +67,7 @@ All other states are beyond reach in one step.
 Similarly,
 
 If X<sub>n</sub> = B<sub>1</sub>,
-* X<sub>n+1</sub> = B_1 - 1 wp &alpha;<sub>2</sub> i.e. a non-defective component is produced by machine 2 and, 
+* X<sub>n+1</sub> = B<sub>1</sub> - 1 wp &alpha;<sub>2</sub> i.e. a non-defective component is produced by machine 2 and, 
 * X<sub>n+1</sub> = B<sub>1</sub> wp 1-&alpha;<sub>2</sub> i.e. a defective component is produced by machine 2.
 
 All other states are beyond reach in one step.
@@ -75,7 +75,7 @@ All other states are beyond reach in one step.
 For all other values of X<sub>n</sub> in S,
 * X<sub>n</sub> = X<sub>n</sub> - 1 wp 1-&alpha;<sub>2</sub> i.e. a defective component is produced by machine 2 and,
 * X<sub>n+1</sub> = X<sub>n</sub> wp &alpha;<sub>1</sub>&alpha;<sub>2</sub> + (1-&alpha;<sub>1</sub>)(1-&alpha;<sub>2</sub>) i.e. either both machines produce a defective component or both machines produce a working component
-* X<sub>n+1</sub> = X_n + 1 wp &alpha;<sub>2</sub> i.e. a non-defective component is produced by machine 2
+* X<sub>n+1</sub> = X<sub>n</sub> + 1 wp &alpha;<sub>2</sub> i.e. a non-defective component is produced by machine 2
 
 
 ![Transition Diagram](TransitionDiagram.png)
@@ -187,8 +187,8 @@ Let Y<sub>i</sub> be the number of components in Bin i for i = 1,2. The average 
 
 Here,
 * P(X<sub>n</sub> = j) = &pi;<sub>j</sub> where j &isin; S
-* E[Y<sub>1</sub> | X<sub>n</sub> = j] = j where j &isin; {0, 1,2,…,B_1}
-* E[Y<sub>2</sub> | X<sub>n</sub> = j] = -j  where j &isin; {-B_2,-B_2+1,…,-1, 0}
+* E[Y<sub>1</sub> | X<sub>n</sub> = j] = j where j &isin; {0, 1,2,…,B<sub>1</sub>}
+* E[Y<sub>2</sub> | X<sub>n</sub> = j] = -j  where j &isin; {-B<sub>2</sub>,-B<sub>2</sub>+1,…,-1, 0}
 
 
 ```python
@@ -239,8 +239,8 @@ Let Z be the number of assembled products in an hour. The average number of prod
 
 Here,
 * P(X<sub>n</sub> = j) = &pi;<sub>j</sub> where j &isin; S
-* E[Z | X<sub>n</sub> = j] = &alpha;<sub>2</sub> where j &isin; {1,2,…,B_1}
-* E[Z | X<sub>n</sub> = j] = &alpha;<sub>1</sub>  where j &isin; {-B_2,-B_2+1,…,-1}
+* E[Z | X<sub>n</sub> = j] = &alpha;<sub>2</sub> where j &isin; {1,2,…,B<sub>1</sub>}
+* E[Z | X<sub>n</sub> = j] = &alpha;<sub>1</sub>  where j &isin; {-B<sub>2</sub>,-B<sub>2</sub>+1,…,-1}
 * E[Z | X<sub>n</sub> = j] = &alpha;<sub>1</sub>&alpha;<sub>2</sub> where j = 0
 
 
@@ -312,7 +312,7 @@ def draw_throughput(x, xname, ShippedProds):
 
 ```python
 def experiment(parameters, change_idx = 0):
-    param_copy = parameters[:]
+    param_copy = parameters[:] # To keep parameters list intact
     """
     change_idx is the index of the parameter to change. It takes values from 0 to 3. When 0 the 0th parameter i.e. B1 is
     changed
