@@ -141,7 +141,7 @@ Since, the DTMC is irreducible and aperiodic, we can solve the following equatio
 
 ![](pi2.png)
 
-Here &piv; is the array of steady state probability of all states.
+Here &pi; is the array of steady state probability of all states.
 
 This can be solved by substituting the last column in [I – P] with 1 and inverting that matrix. The code for this is as below
 
@@ -186,7 +186,7 @@ Let Y<sub>i</sub> be the number of components in Bin i for i = 1,2. The average 
 ![](EY.png)
 
 Here,
-* P(X<sub>n</sub> = j) = &piv;<sub>j</sub> where j &isin; S
+* P(X<sub>n</sub> = j) = &pi;<sub>j</sub> where j &isin; S
 * E[Y<sub>1</sub> | X<sub>n</sub> = j] = j where j &isin; {0, 1,2,…,B_1}
 * E[Y<sub>2</sub> | X<sub>n</sub> = j] = -j  where j &isin; {-B_2,-B_2+1,…,-1, 0}
 
@@ -238,7 +238,7 @@ Let Z be the number of assembled products in an hour. The average number of prod
 ![](EZ.png)
 
 Here,
-* P(X<sub>n</sub> = j) = &piv;<sub>j</sub> where j &isin; S
+* P(X<sub>n</sub> = j) = &pi;<sub>j</sub> where j &isin; S
 * E[Z | X<sub>n</sub> = j] = &alpha;<sub>2</sub> where j &isin; {1,2,…,B_1}
 * E[Z | X<sub>n</sub> = j] = &alpha;<sub>1</sub>  where j &isin; {-B_2,-B_2+1,…,-1}
 * E[Z | X<sub>n</sub> = j] = &alpha;<sub>1</sub>&alpha;<sub>2</sub> where j = 0
